@@ -118,13 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            FloatingActionButton(
-              onPressed: _decrementCounter,
-              tooltip: 'Decrement',
-              child: const Icon(Icons.remove),
-            ),
+            if (_counter != 0)
+              FloatingActionButton(
+                onPressed: _decrementCounter,
+                tooltip: 'Decrement',
+                child: const Icon(Icons.remove),
+              ),
+            const Spacer(),
             FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
