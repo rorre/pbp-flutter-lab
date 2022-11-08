@@ -1,16 +1,30 @@
-# counter_7
+# Lab 7
 
-A new Flutter project.
+1. Stateless vs Stateful Widget
+    Stateless widget adalah widget yang memiliki isi yang stasis (tidak berubah), sedangkan stateful widget adalah widget yang memiliki isi yang dinamis, yaitu state yang dapat berubah kapanpun sesuai dengan perintah program.
 
-## Getting Started
+2. Widget yang digunakan
+   - `MaterialApp`: Widget untuk membuat aplikasi material
+   - `Scaffold`: Widget untuk mengimplementasikan layout Material Design
+   - `AppBar`: Widget untuk bar yang ada di atas layar
+   - `Center`: Widget untuk meletakkan child widget di tengah-tengah parent
+   - `Column`: Widget untuk menaruh widget children di suatu kolom (dari atas ke bawah)
+   - `Text`: Widget untuk menaruh teks
+   - `Padding`: Widget untuk memberi spasi di sekitar child widget
+   - `Row`: Widget untuk menaruh widget children di suatu baris (dari kiri ke kanan)
+   - `FloatingActionButton`: Widget untuk menampilkan button lingkaran yang melayang
+   - `Spacer`: Widget untuk memberi spasi secara *greedy*
 
-This project is a starting point for a Flutter application.
+3. Fungsi dari `setState()`
+   Fungsi dari `setState()` adalah untuk mengganti nilai dari variable class. Variable yang dapat terdampak adalah segala variable yang ada di class tersebut yang tidak bersifat `const` atau `final`.
 
-A few resources to get you started if this is your first Flutter project:
+4. `const` vs `final`
+   Secara penggunaan mereka merupakan hal yang sama, yaitu variable yang tidak dapat dirubah (immutable). Namun, `const` memiliki perbedaan bahwa `const` bersifat immutable sejak *compile-time*, sehingga object yang merupakan `const` adalah *deeply immutable*, di mana setiap atribut tidak dapat diganti sama sekali
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+5. Mengimplementasikan checklist
+   - Membuat app dengan `flutter create counter_7`
+   - Mengganti atribut `floatingActionButton` dengan dua FAB yang ditaruh dalam suatu Row
+   - Set `onPressed` FAB minus ke `decrementCounter()`
+   - Melakukan render genap atau ganjil menggunakan ternary dan mengganti warna dengan `style`
+   - Menggunakan conditional rendering untuk menghilangkan tombol `-` apabila nilai 0
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
