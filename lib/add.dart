@@ -51,6 +51,21 @@ class _AddBudgetState extends State<AddBudgetPage> {
   int nonimal = 0;
   String jenis = "default";
 
+  void submitForm(BuildContext ctx) {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+
+    final newBudget = Budget(judul, nonimal, jenis);
+    Provider.of<BudgetModel>(context, listen: false).add(newBudget);
+
+    const snackBar = SnackBar(
+      content: Text('Data disimpan!'),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +98,7 @@ class _AddBudgetState extends State<AddBudgetPage> {
                 label: "Nominal",
                 onEdit: (value) {
                   setState(() {
-                    nonimal = int.parse(value!);
+                    nonimal = int.tryParse(value!) ?? nonimal;
                   });
                 },
                 validator: (value) {
@@ -124,11 +139,7 @@ class _AddBudgetState extends State<AddBudgetPage> {
               ),
               const Spacer(),
               TextButton(
-                onPressed: () {
-                  final newBudget = Budget(judul, nonimal, jenis);
-                  Provider.of<BudgetModel>(context, listen: false)
-                      .add(newBudget);
-                },
+                onPressed: () => submitForm(context),
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.blue),
