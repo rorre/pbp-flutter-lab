@@ -49,14 +49,14 @@ class _AddBudgetState extends State<AddBudgetPage> {
   final _formKey = GlobalKey<FormState>();
   String judul = "";
   int nonimal = 0;
-  String jenis = "default";
+  String? jenis;
 
   void submitForm(BuildContext ctx) {
     if (!_formKey.currentState!.validate()) {
       return;
     }
 
-    final newBudget = Budget(judul, nonimal, jenis);
+    final newBudget = Budget(judul, nonimal, jenis!);
     Provider.of<BudgetModel>(context, listen: false).add(newBudget);
 
     const snackBar = SnackBar(
@@ -115,26 +115,27 @@ class _AddBudgetState extends State<AddBudgetPage> {
                 },
               ),
               const SizedBox(height: 10),
-              DropdownButton(
+              DropdownButtonFormField(
                 value: jenis,
                 icon: const Icon(Icons.keyboard_arrow_down),
-                items: [
-                  const DropdownMenuItem(
-                    value: "default",
-                    enabled: false,
-                    child: Text("Pilih Jenis"),
-                  ),
-                  ...listJenis.map((String items) {
-                    return DropdownMenuItem(
-                      value: items,
-                      child: Text(items),
-                    );
-                  }).toList()
-                ],
+                hint: const Text("Pilih jenis"),
+                items: listJenis.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
                 onChanged: (String? newValue) {
                   setState(() {
                     jenis = newValue!;
                   });
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Harap memilih jenis!";
+                  }
+
+                  return null;
                 },
               ),
               const Spacer(),
