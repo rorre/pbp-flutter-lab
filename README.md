@@ -28,3 +28,29 @@
    - Melakukan render genap atau ganjil menggunakan ternary dan mengganti warna dengan `style`
    - Menggunakan conditional rendering untuk menghilangkan tombol `-` apabila nilai 0
 
+# Lab 8
+
+1. `Navigator.push` vs `Navigator.pushReplacement`
+    Pada `Navigator.pushReplacement`, route yang sebelumnya ditampilkan akan dibuang, sedangkan pada `Navigator.push` route sebelumnya akan tetap tersimpan di Stack.
+
+2. Widget yang dipakai
+    - Form: Untuk mengumpulkan elemen-elemen form
+    - TextInput: Untuk teks input field
+    - DropdownButtonFormField: Membuat dropdown untuk memilih opsi yang ada
+    - TextButton: Menampilkan tombol yang bisa diklik dengan teks
+    - Card: Widget untuk menampilkan kumpulan data pada suatu rounded corner dan elevasi
+
+3. Event di Flutter
+    - onPressed
+    - onChange
+    - onSaved
+    - onTap
+
+4. Cara kerja `Navigator`
+    Navigator berfungsi dengan menyimpan stack dari route-route yang digunakan app. Di mana route tersebut merupakan widget yang berupa page baru. Terdapat method `push` untuk berpindah ke route yang ditentukan dengan builder yang diberikan, yang menghasilkan widget page yang dituju. Serta `pop` atau back button yang berguna untuk kembali ke page sebelumnya.
+    
+5. Cara implementasi
+    1. Memindahkan drawer ke satu file sendiri dengan komponen sendiri
+    2. Membuat page add budget pada file `add.dart`
+    3. Menyimpan data di `model.dart` dan melakukan handle logic app state
+    4. Membuat page show budget pada file `listing.dart` yang mengambil data dari model yang telah dibuat
