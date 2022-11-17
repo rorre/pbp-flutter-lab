@@ -9,11 +9,13 @@ class TextInput extends StatelessWidget {
       {super.key,
       required this.onEdit,
       required this.label,
-      required this.validator});
+      required this.validator,
+      this.onTap});
 
   final String label;
   final void Function(String? value) onEdit;
   final String? Function(String? validator) validator;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class TextInput extends StatelessWidget {
       onChanged: onEdit,
       onSaved: onEdit,
       validator: validator,
+      onTap: onTap,
     );
   }
 }
@@ -39,24 +42,21 @@ class AddBudgetPage extends StatefulWidget {
 }
 
 class _AddBudgetState extends State<AddBudgetPage> {
-  List<String> listJenis = [
-    "Makanan",
-    "Minuman",
-    "Akademis",
-    "Jalan-jalan",
-    "Misc",
-  ];
+  List<String> listJenis = ["Pengeluaran", "Pemasukan"];
   final _formKey = GlobalKey<FormState>();
   String judul = "";
   int nonimal = 0;
   String? jenis;
+  DateTime? tanggal;
 
   void submitForm(BuildContext ctx) {
-    if (!_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate() || tanggal == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Harap melengkapi data!")));
       return;
     }
 
-    final newBudget = Budget(judul, nonimal, jenis!);
+    final newBudget = Budget(judul, nonimal, jenis!, tanggal!);
     Provider.of<BudgetModel>(context, listen: false).add(newBudget);
 
     const snackBar = SnackBar(
@@ -137,6 +137,34 @@ class _AddBudgetState extends State<AddBudgetPage> {
 
                   return null;
                 },
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(tanggal != null
+                      ? "${tanggal!.day}-${tanggal!.month}-${tanggal!.year}"
+                      : "Tanggal belum ditentukan"),
+                  const Spacer(),
+                  TextButton(
+                    onPressed: () => showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2022),
+                            lastDate: DateTime(2030))
+                        .then((value) => setState(() {
+                              tanggal = value;
+                            })),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text("Pilih Tanggal"),
+                    ),
+                  )
+                ],
               ),
               const Spacer(),
               TextButton(

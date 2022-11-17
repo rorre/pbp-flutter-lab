@@ -45,6 +45,9 @@ class _BudgetListPageState extends State<BudgetListPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(item.nonimal.toString()),
+                          Text(
+                            "${item.tanggal.day}-${item.tanggal.month}-${item.tanggal.year}",
+                          ),
                           Text(item.jenis)
                         ],
                       )
