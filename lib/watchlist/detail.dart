@@ -76,9 +76,16 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
                   widget.watchData.fields.watched ? "Watched" : "Not Watched",
             ),
             const SizedBox(height: 16.0),
-            FieldRow(
-              title: "Review: ",
-              child: widget.watchData.fields.review,
+            const Text(
+              "Review:",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              widget.watchData.fields.review,
+              style: const TextStyle(fontSize: 16),
             ),
             const Spacer(),
             Row(
