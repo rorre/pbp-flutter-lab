@@ -13,6 +13,12 @@ class WatchListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+        side: BorderSide(
+          color: data.fields.watched ? Colors.green : Colors.red,
+        ),
+      ),
       child: InkWell(
         onTap: () {
           Navigator.push(
