@@ -3,6 +3,21 @@ import 'package:flutter/material.dart';
 
 import '../drawer.dart';
 
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
 class FieldRow extends StatelessWidget {
   const FieldRow({super.key, required this.title, required this.child});
 
@@ -38,8 +53,12 @@ class WatchDetailPage extends StatefulWidget {
 }
 
 class _WatchDetailPageState extends State<WatchDetailPage> {
+  late bool _hasWatched = widget.watchData.fields.watched;
+
   @override
   Widget build(BuildContext context) {
+    final releaseDate = widget.watchData.fields.releaseDate;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail'),
@@ -62,7 +81,8 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
             const SizedBox(height: 16.0),
             FieldRow(
               title: "Release Date: ",
-              child: widget.watchData.fields.releaseDate.toString(),
+              child:
+                  "${months[releaseDate.month]} ${releaseDate.day}, ${releaseDate.year}",
             ),
             const SizedBox(height: 16.0),
             FieldRow(
@@ -83,9 +103,27 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
                 fontSize: 16,
               ),
             ),
+            const SizedBox(height: 8.0),
             Text(
               widget.watchData.fields.review,
               style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 16.0),
+            Row(
+              children: [
+                Checkbox(
+                  value: _hasWatched,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _hasWatched = value!;
+                    });
+                  },
+                ),
+                const Text(
+                  "Mark as Watched",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
             ),
             const Spacer(),
             Row(
