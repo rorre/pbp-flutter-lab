@@ -1,8 +1,7 @@
+import 'package:counter_7/model/fetcher.dart';
 import 'package:counter_7/model/watchlist.dart';
 import 'package:counter_7/watchlist/detail.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import '../drawer.dart';
 
@@ -40,30 +39,6 @@ class WatchListingPage extends StatefulWidget {
 }
 
 class _WatchListingPageState extends State<WatchListingPage> {
-  Future<List<WatchList>> fetchToDo() async {
-    var url = Uri.parse('https://pbp22t2.herokuapp.com/mywatchlist/json');
-    var response = await http.get(
-      url,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-    );
-
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object ToDo
-    List<WatchList> listToDo = [];
-    for (var d in data) {
-      if (d != null) {
-        listToDo.add(WatchList.fromJson(d));
-      }
-    }
-
-    return listToDo;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +49,7 @@ class _WatchListingPageState extends State<WatchListingPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: FutureBuilder<List<WatchList>>(
-          future: fetchToDo(),
+          future: fetchWatchList(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final data = snapshot.data!;

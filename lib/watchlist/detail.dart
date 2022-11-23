@@ -67,7 +67,7 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
             const SizedBox(height: 16.0),
             FieldRow(
               title: "Rating: ",
-              child: '${widget.watchData.fields.rating}/5',
+              child: '${widget.watchData.fields.rating}/5.0',
             ),
             const SizedBox(height: 16.0),
             FieldRow(
