@@ -53,8 +53,6 @@ class WatchDetailPage extends StatefulWidget {
 }
 
 class _WatchDetailPageState extends State<WatchDetailPage> {
-  late bool _hasWatched = widget.watchData.fields.watched;
-
   @override
   Widget build(BuildContext context) {
     final releaseDate = widget.watchData.fields.releaseDate;
@@ -107,23 +105,6 @@ class _WatchDetailPageState extends State<WatchDetailPage> {
             Text(
               widget.watchData.fields.review,
               style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16.0),
-            Row(
-              children: [
-                Checkbox(
-                  value: _hasWatched,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      _hasWatched = value!;
-                    });
-                  },
-                ),
-                const Text(
-                  "Mark as Watched",
-                  style: TextStyle(fontSize: 16),
-                ),
-              ],
             ),
             const Spacer(),
             Row(

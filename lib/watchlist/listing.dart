@@ -5,10 +5,17 @@ import 'package:flutter/material.dart';
 
 import '../drawer.dart';
 
-class WatchListCard extends StatelessWidget {
+class WatchListCard extends StatefulWidget {
   const WatchListCard({super.key, required this.data});
 
   final WatchList data;
+
+  @override
+  State<WatchListCard> createState() => _WatchListCardState();
+}
+
+class _WatchListCardState extends State<WatchListCard> {
+  late bool _hasWatched = widget.data.fields.watched;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class WatchListCard extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5),
         side: BorderSide(
-          color: data.fields.watched ? Colors.green : Colors.red,
+          color: widget.data.fields.watched ? Colors.green : Colors.red,
         ),
       ),
       child: InkWell(
@@ -24,13 +31,26 @@ class WatchListCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => WatchDetailPage(watchData: data),
+              builder: (context) => WatchDetailPage(watchData: widget.data),
             ),
           );
         },
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: Text(data.fields.title),
+          child: Row(
+            children: [
+              Text(widget.data.fields.title),
+              const Spacer(),
+              Checkbox(
+                value: _hasWatched,
+                onChanged: (bool? value) {
+                  setState(() {
+                    _hasWatched = value!;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
